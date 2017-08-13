@@ -1,8 +1,14 @@
 'use strict';
 
+// required Schema's
+const Word = require('../../backend/model/word-schema.js');
+
+
 // GLOBAL variables
 let unrecognizedTerms;
 let termCorrectionCounter = 0;
+
+
 
 function unrecognizedTermsFeedback(){
 
@@ -27,7 +33,28 @@ function unrecognizedTermsFeedback(){
     $('.unrecognized-term-button').show();
   }
 
+  function learnName(){
+    $('#add-name-to-db').click(function(event){
+      event.preventDefault();
+      console.log('name button clicked');
+      let nameToLearn = $('#unrecognized-term-text').html();
+      console.log('nameToLearn = ' + nameToLearn);
+
+      // const newName = new Word({
+      //   name: [{
+      //     name: nameToLearn,
+      //     patternOrigination: 'placeHolder',
+      //     probabilityOfPatternRecognition: 'placeHolder'
+      //    }]
+      // })
+
+      getWords();
+    });
+  }
+
   reRenderStatement();
   buildUnrecognizedTermsArray();
   renderUnrecognizedTermArrayAndButtons();
+  learnName();
+
 }
