@@ -1,0 +1,175 @@
+<!-- <!DOCTYPE html> -->
+<html>
+
+<head>
+  <!-- Basic Page Needs
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="UTF-8">
+  <title>Calcifer</title>
+
+  <!-- Mobile
+      _____________________________________________________ -->
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="HandheldFriendly" content="true">
+
+  <!-- CSS
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+  <link href="style/global.css" rel="stylesheet" type="text/css">
+  <link rel="icon" type="image/png" href="style/images/favicon2.png">
+
+  <!-- FONT
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet" type="text/css">
+  <link href="style/global.css" rel="stylesheet" type="text/css">
+
+  <!-- Navigation Bar
+    –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+  <body class="subpage">
+    <header>
+      <nav class="main-nav">
+        <ul>
+          <li class="tab" data-content="main"><a href="#">Home</a></li>
+          <!-- <li class="tab" data-content="madam"><a id="madam-flix">Madam Flix</a></li> -->
+          <li class="tab" data-content="about"><a href="#">About Us</a></li>
+        </ul>
+        <form id="login-form">
+          <fieldset>
+            <label for="username"></label>
+            <!-- put the input inside the label -->
+            <input id="username-input" name="username" type="text" placeholder="Username" />
+            <label id="password" for="password"></label>
+            <input id="password-input" name="password" type="password" placeholder="Password" />
+            <button id="submitButton" type="submit">Login</button>
+          </fieldset>
+        </form>
+        <form id="log-out">
+          <fieldset>
+            <label id="current-user" for="username"></label>
+            <!-- put the input inside the label -->
+            <label id="password" for="password"></label>
+            <button id="submitButton" type="submit">Log Out</button>
+          </fieldset>
+        </form>
+      </nav>
+    </header>
+
+
+
+    <!-- GAME SECTIONS!!!!
+ –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+    <section class="hpsection" id="game-start" class="tab-content">
+      <div class="welcome-text">
+        <section id="movieContainer">
+          <div id="calcifer-titled">
+            <h1 id=load-calcifers-brain>Calcifer</h1>
+            <p id="calicers-speach-text"><span>"Hello, my name is Calcifer."</span></p>
+            <h2 id="unrecognized-term-text"></h2>
+            <button class="unrecognized-term-button" type="submit">Name</button>
+            <button class="unrecognized-term-button" type="submit">Noun</button>
+            <button class="unrecognized-term-button" type="submit">Pronoun!</button>
+            <button class="unrecognized-term-button" type="submit">Verb</button>
+            <button class="unrecognized-term-button" type="submit">Adverb</button>
+            <button class="unrecognized-term-button" type="submit">Adjective</button>
+            <button class="unrecognized-term-button" type="submit">Preposition</button>
+          </div>
+          <div id="movieIMG">
+
+            <form id="califers-text-input-box" action="/insert">
+              <fieldset>
+                <label for="text-input"></label>
+                <!-- put the input inside the label -->
+                <input id="text-box-input" name="entry" type="text" placeholder="Talk to Calcifer"/>
+                <button id="send-statement" type="submit">SEND</button>
+              </fieldset>
+            </form>
+
+            <div id="response-accuracy-feedback-div">
+              <div id="movieIMG">
+                <!-- NOT SURE I NEED THIS === 'calcifers-response' id anymore -->
+                <p id="califers-response"></p>
+                <button class="calcifer-feedback-button" id="clever" type="submit">Clever!</button>
+                <button class="calcifer-feedback-button" id="logical" type="submit">Logical</button>
+                <button class="calcifer-feedback-button" id="nonsensical" type="submit">Nonsensical</button>
+                <button class="calcifer-feedback-button" id="innappropriate" type="submit">Innappropriate</button>
+                <div id="movieDescription">
+                  <h5 id="give-calcifer-feedback-text">please help Calcifer learn</h5>
+                </div>
+              <h4></h4>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+<!--
+    <section class="hpsection" id="game-start" class="tab-content">
+      <div class="welcome-text">
+        <section id="movieContainer">
+          <div id="calcifer-titled">
+            <h1 id=load-calcifers-brain>Calcifer</h1>
+            <p id="calicers-speach-text">"Hello, my name is Calcifer."</p>
+          </div>
+          <div id="movieIMG">
+
+            <form id="califers-text-input-box" action="/insert">
+              <fieldset>
+                <label for="text-input"></label>
+                <!-- put the input inside the label -->
+
+                <!--
+                <input id="text-box-input" name="entry" type="text" placeholder="Talk to Calcifer"/>
+                <button id="send-statement" type="submit">SEND</button>
+              </fieldset>
+            </form>
+
+            <div id="teaching-paths">
+              <div id="movieIMG">
+              -->
+                <!-- NOT SURE I NEED THIS === 'calcifers-response' id anymore -->
+                <!--
+                <p id=""></p>
+                <button class="calcifer-feedback-button" id="clever" type="submit">Clever!</button>
+                <button class="calcifer-feedback-button" id="logical" type="submit">Logical</button>
+                <button class="calcifer-feedback-button" id="nonsensical" type="submit">Nonsensical</button>
+                <button class="calcifer-feedback-button" id="innappropriate" type="submit">Innappropriate</button>
+                <p id="calcifer-feedback-text">please help Calcifer learn</p>
+                <div id="movieDescription">
+                  <h1></h1>
+                </div>
+              <h4></h4>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+    -->
+
+      <footer>Copyright &copy; 2017</footer>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+      <script src="scripts/controllers/calcifer.js"></script>
+      <script src="scripts/controllers/load-calcifers-brain.js"></script>
+      <script src="scripts/controllers/feedback-button-functions.js"></script>
+      <script src="scripts/controllers/unrecognized-terms-feedback.js"></script>
+      <script src="scripts/controllers/analyze-first-statement.js"></script>
+      <script src="scripts/controllers/analyze-first-statement-probabilities.js"></script>
+      <script src="scripts/controllers/name-declaration-search.js"></script>
+      <script src="scripts/controllers/language-structures.js"></script>
+      <script src="vendor/scripts/handlebars.js"></script>
+      <script src="vendor/scripts/marked.js"></script>
+      <!-- <script src="scripts/controllers/pickscontroller.js"></script>
+      <script src="scripts/controllers/resultscontroller.js"></script>
+      <script src="scripts/controllers/aboutController.js"></script> -->
+      <!-- <script src="../../../public/scripts/test/saving_demo.js"></script> -->
+      <!-- <script src="scripts/test/responses-data.js"></script> -->
+      <script src="scripts/controllers/responses.js"></script>
+      <script src="scripts/controllers/login.js"></script>
+      <!-- <script src="scripts/views/resultsview.js"></script> -->
+      <!-- Our request call  -->
+
+  </body>
+
+</html>
