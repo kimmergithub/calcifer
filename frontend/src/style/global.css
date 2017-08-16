@@ -452,7 +452,7 @@ footer {
   /*background-color: grey;*/
 }
 
-#text-box-input {
+#text-box-input, #reply-text-box-input {
   margin: 0;
   color: white;
   font-family: fantasy;
@@ -461,9 +461,9 @@ footer {
   border-radius: 5px;
 }
 
-#send-statement {
+#send-statement, #reply-send-statement {
   cursor: hand;
-  max-width: 10%;
+  max-width: 15%;
   max-height: 6%;
   color: black;
   font-family: fantasy;
