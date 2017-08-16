@@ -10,6 +10,9 @@ let segmentedFirstStatement;
 $('#response-accuracy-feedback-div').hide();
 $('.unrecognized-term-button').hide();
 $('#unrecognized-term-text').hide();
+$('#you-said').hide();
+$('#add-a-reply').hide();
+$('#back-calcifer-button').hide();
 
 $('#send-statement').click(function (event) {
   event.preventDefault();

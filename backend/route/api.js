@@ -5,6 +5,8 @@ const express = require('express');
 const router = express.Router();
 const Entry = require('../model/responses-data');
 const Word = require('../model/word-schema');
+const PatternRecognition = require('../model/pattern-recognition-schema');
+const ReplyRecognition = require('../model/possible-reply-schema');
 
 // NOTE: FRONT END
 // to access these APIs on the front end you'll have to create an event handles and build an API sting form the data input that will do what you want it to do and use certain functions like fetch and etc...
@@ -25,8 +27,6 @@ router.get('/ninjas', function(req, res, next){
     res.send(entry);
     console.log(entry);
   })
-
-  // });
 });
 
 
@@ -44,8 +44,6 @@ router.get('/words/:word', function(req, res, next){
       res.send(words);
       console.log(words);
   })
-
-  // });
 });
 
 // Need to do an ajax post which will hit this post route which will use the schema...
@@ -55,6 +53,54 @@ router.post('/words', function(req, res, next){
   Word.create(req.body).then(function(words){
     res.send(words);
     console.log(words);
+  }).catch(next);
+});
+
+//GETTING PATTERNS
+router.get('/PatternRecognition/:startingPatternString', function(req, res, next){
+    PatternRecognition.find({startingPatternString: req.params.startingPatternString}).then(function(pattern){
+      res.send(pattern);
+      console.log(pattern);
+  })
+
+  // });
+});
+
+//PUTTING PATTERN
+router.put('/PatternRecognition/:startingPatternString', function(req, res, next){
+  console.log(req.body[0].startingPatternString);
+  console.log('b');
+  console.log('b');
+  console.log(req.params);
+  console.log('b');
+  console.log(req.body[0].endingPattern[0]);
+  PatternRecognition.findOneAndUpdate({startingPatternString: req.params.startingPatternString}, {$push: {endingPattern: req.body[0].endingPattern[0]}, $inc: {samplesize: 1}}, {new: true}).then(function(pattern){
+    res.send(pattern);
+    console.log(pattern);
+  }).catch(function(error){
+    console.log(error);
+  })
+});
+
+//POSTING PATTERN
+router.post('/PatternRecognition', function(req, res, next){
+  console.log('req.body = ' + req.body);
+  console.log('res.body = ' + res.body);
+  PatternRecognition.create(req.body).then(function(pattern){
+    res.send(pattern);
+    console.log(pattern);
+  }).catch(next);
+
+  // });
+});
+
+//POST REPLY
+router.post('/PatternReply', function(req, res, next){
+  console.log('req.body = ' + req.body);
+  console.log('res.body = ' + res.body);
+  ReplyRecognition.create(req.body).then(function(pattern){
+    res.send(pattern);
+    console.log(pattern);
   }).catch(next);
 
   // });

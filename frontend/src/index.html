@@ -66,6 +66,7 @@
         <section id="movieContainer">
           <div id="calcifer-titled">
             <h1 id=load-calcifers-brain>Calcifer</h1>
+            <p id="you-said"></p>
             <p id="calicers-speach-text"><span>"Hello, my name is Calcifer."</span></p>
             <h2 id="unrecognized-term-text"></h2>
             <button class="unrecognized-term-button" id="add-name-to-db" type="submit">Name</button>
@@ -87,6 +88,16 @@
               </fieldset>
             </form>
 
+            <form id="add-a-reply" action="/insert">
+              <fieldset>
+                <label for="reply-add-text-input"></label>
+                <!-- put the input inside the label -->
+                <input id="reply-text-box-input" name="entry" type="text" placeholder="Enter a clever reply?"/>
+                <button id="reply-send-statement" type="submit">TEACH</button>
+              </fieldset>
+            </form>
+            <button id="back-calcifer-button" type="submit">Talk To Calcifer</button>
+
             <div id="response-accuracy-feedback-div">
               <div id="movieIMG">
                 <!-- NOT SURE I NEED THIS === 'calcifers-response' id anymore -->
@@ -104,48 +115,6 @@
         </section>
       </div>
     </section>
-<!--
-    <section class="hpsection" id="game-start" class="tab-content">
-      <div class="welcome-text">
-        <section id="movieContainer">
-          <div id="calcifer-titled">
-            <h1 id=load-calcifers-brain>Calcifer</h1>
-            <p id="calicers-speach-text">"Hello, my name is Calcifer."</p>
-          </div>
-          <div id="movieIMG">
-
-            <form id="califers-text-input-box" action="/insert">
-              <fieldset>
-                <label for="text-input"></label>
-                <!-- put the input inside the label -->
-
-                <!--
-                <input id="text-box-input" name="entry" type="text" placeholder="Talk to Calcifer"/>
-                <button id="send-statement" type="submit">SEND</button>
-              </fieldset>
-            </form>
-
-            <div id="teaching-paths">
-              <div id="movieIMG">
-              -->
-                <!-- NOT SURE I NEED THIS === 'calcifers-response' id anymore -->
-                <!--
-                <p id=""></p>
-                <button class="calcifer-feedback-button" id="clever" type="submit">Clever!</button>
-                <button class="calcifer-feedback-button" id="logical" type="submit">Logical</button>
-                <button class="calcifer-feedback-button" id="nonsensical" type="submit">Nonsensical</button>
-                <button class="calcifer-feedback-button" id="innappropriate" type="submit">Innappropriate</button>
-                <p id="calcifer-feedback-text">please help Calcifer learn</p>
-                <div id="movieDescription">
-                  <h1></h1>
-                </div>
-              <h4></h4>
-            </div>
-          </div>
-        </section>
-      </div>
-    </section>
-    -->
 
       <footer>Copyright &copy; 2017</footer>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -153,11 +122,14 @@
       <script src="scripts/controllers/calcifer.js"></script>
       <script src="scripts/controllers/load-calcifers-brain.js"></script>
       <script src="scripts/controllers/feedback-button-functions.js"></script>
+      <script src="scripts/controllers/query-database-for-patterns.js"></script>
       <!-- May not use the crud-operation file...  -->
       <script src="scripts/controllers/unrecognized-terms-feedback.js"></script>
+      <script src="scripts/controllers/nonsensical-button-functions.js"></script>
       <script src="scripts/controllers/name-learning.js"></script>
       <script src="scripts/controllers/analyze-first-statement.js"></script>
       <script src="scripts/controllers/analyze-first-statement-probabilities.js"></script>
+      <script src="scripts/controllers/push-pattern-functions.js"></script>
       <script src="scripts/controllers/name-declaration-search.js"></script>
       <script src="scripts/controllers/language-structures.js"></script>
       <!-- searching for model use: possible this is not the right approach..-->
