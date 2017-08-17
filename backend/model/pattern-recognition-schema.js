@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const endingPatternAndPointsSchema = new Schema({
   endingPattern: { type: Array, require: true },
   endingPatternString: { type: String, require: true },
-  patternOccurence: { type: Number, require: true }
+  patternOccurence: { type: Array, require: true }
 })
 
 const patternRecognitionSchema = new Schema({

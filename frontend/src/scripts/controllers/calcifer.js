@@ -64,7 +64,7 @@ function findPossibleCalciferReplies() {
     possibleCalciferFirstResponseArray.push('I know it is... we\'ve been over this... it would appear that my memory is better than yours.');
   }
   console.log(possibleReplyCounter + ' possible replies.');
-  console.log('all possible replies = ' + possibleCalciferFirstResponseArray)
+  // console.log('all possible replies = ' + possibleCalciferFirstResponseArray)
 }
 
 function calciferChoosesReply() {

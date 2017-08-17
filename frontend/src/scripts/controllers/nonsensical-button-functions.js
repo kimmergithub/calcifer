@@ -51,7 +51,7 @@ function nonsensicalButtonFunctions(){
   $('#reply-send-statement').click(function (event) {
     event.preventDefault();
     console.log('TEACH BUTTON CLICKED');
-    let newReplyText = $('#reply-text-box-input').val();
+    newReplyText = $('#reply-text-box-input').val();
     console.log(newReplyText);
     //functions
     buildNewReplyObject();
@@ -60,9 +60,10 @@ function nonsensicalButtonFunctions(){
     $('#add-a-reply').hide();
     $('#calicers-speach-text').html('Thanks for teaching me, it takes 30 times for me to really learn the pattern!');
     $('#back-calcifer-button').show();
-    $('#back-calcifer-button').click(function(){
-      console.log('reboot!');
-    });
 
   });
 }
+
+$('#back-calcifer-button').click(function(){
+  console.log('reboot!');
+});
