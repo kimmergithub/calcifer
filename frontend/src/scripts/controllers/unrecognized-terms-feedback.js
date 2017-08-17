@@ -20,6 +20,8 @@ let finalPattern = '';
 let putObject = {};
 let putPatternArray;
 let putPatternString;
+let putAndIncFlag = false;
+let endingPatternExistsFlag = true;
 
 function unrecognizedTermsFeedback(){
 
@@ -87,7 +89,7 @@ function unrecognizedTermsFeedback(){
     console.log('queryDatabaseForPatternsExisting');
     console.log('QUERY PATTERN FIRE FIRE FIRE FIRE FIRE FIRE FIRE!!!!!!!!!');
 
-    function queryDatabaseForPatterns(callback){
+    function queryDatabaseForPatterns(callback, putIncrimentORpush){
       console.log(startPatternString);
       $.ajax({
         type: 'GET',
@@ -98,71 +100,128 @@ function unrecognizedTermsFeedback(){
           console.log('success', pattern);
           isPatternInDatabase = pattern;
         }
-      }).then(callback);
+      }).then(callback).then(putIncrimentORpush);
 
     }
-    queryDatabaseForPatterns(renderLearningTools);
+    queryDatabaseForPatterns(renderLearningTools, putORpush);
   }
 
+// builds an object to push into a current Pattern in the database.
   function buildPutObject(){
+
     putPatternArray = wordPatternArray;
     putPatternString = wordPatternArray.join();
     putObject =
+
     {
       startingPatternString: startPatternString,
       endingPattern: [
           {
               endingPatternString: putPatternString,
-              patternOccurence: 1,
+              patternOccurence: [1],
               endingPattern: putPatternArray
           }
       ],
-      startingPattern: [
+      startingPattern:
           startingPatternArray
-      ]
     }
-  }
-az  
-  function putUniqueEndingPatternAndIncriment(){
-    buildPutObject()
-    $.ajax({
-      url: '/PatternRecognition/:startingPatternString',
-      type: 'PUT',
-      data: putObject,
-      success: function(data) {
-        console.log('success', wordData);
-        console.log('WORD IS IN DATABASE = ' + wordData);
-        console.log('WORD QUERY FINISHED !!!');
-      }
-    });
+
+    console.log(' ');
+    console.log(buildPutObject);
+    console.log(' ');
+
   }
 
+  function putUniqueEndingPatternAndIncriment(){
+    console.log(' ');
+    console.log('startPatternString = ' + startPatternString);
+    console.log('putObject = ' + putObject);
+    console.log(putObject);
+    console.log('PUTTING AND INC... PUTTING and INC...');
+    buildPutObject()
+    searchForEndingPatternInExistingPatterns();
+
+    if ( (putAndIncFlag !== true) && (endingPatternExistsFlag !== true) ) {
+
+      $.ajax({
+        url: 'api/PatternRecognition/' + startPatternString,
+        type: 'PUT',
+        data: putObject,
+        success: function(data) {
+          console.log('PUT success', data);
+        }
+      });
+
+      putAndIncFlag = true;
+    } else if (endingPatternExistsFlag === true) {
+      console.log('IGNORED PUT BECUASE FLAG WAS TRUE!!! pattern exists!!!')
+      // console.log('POSTING PATTERN!!!');
+      // console.log(newPattern)
+      // $.ajax({
+      //   type: 'PUT',
+      //   url: 'api/PatternRecognitionInc' + startPatternString,
+      //   data: newPattern,
+      //   success: function(data){
+      //     console.log('POSTING success', data);
+      //   },
+      //   error: function(){
+      //     alert('error posting new name word!')
+      //   }
+      // });
+      //and
+
+    }
+
+
+  }
+
+  function putORpush(){
+    if ( (pushPatternFlag !== true)  && (isPatternInDatabase.length > 0) && (isPatternInDatabase[0].endingPattern[0].endingPattern !== wordPatternArray) ){
+      console.log('Placeholding')
+      console.log('');
+      // need to put new pattern and incriment
+      putUniqueEndingPatternAndIncriment();
+    } else if ( (isPatternInDatabase.length === 0) && (pushPatternFlag !== true) ){
+      console.log('pushing pattern into database!!!')
+
+      pushPatternsIntoNewWords();
+    }
+  }
+
+
   function renderUnrecognizedTermArrayAndButtons(){
-    if (wordPatternArray.indexOf('Unrecognized') === -1) {
+
+    // && (allTermsCounted !== true)
+    if ( (wordPatternArray.indexOf('Unrecognized') === -1) ) {
+
       hideLearningTools();
       console.log('ALL TERMS ACCOUNTED FOR!!!');
       allTermsCounted = true;
-      if ( (pushPatternFlag !== true)  && (isPatternInDatabase.length > 0) && (isPatternInDatabase[0].endingPattern[0].endingPattern !== wordPatternArray) ){
-        console.log('Placeholding')
-        // need to put new pattern and incriment
-        putUniqueEndingPatternAndIncriment();
-      } else if (isPatternInDatabase.length === 0){
-        pushPatternsIntoNewWords();
-      }
+
+      console.log('');
+      console.log(isPatternInDatabase);
+      queryDatabaseForPatternsExisting()
+
     } else {
+
       if (renderSwitch === false){
+
         searchDatabaseForUnrecognizedWords(resetPatternFunction, renderUnrecognizedTermArrayAndButtons);
+
       } else {
+
         console.log('in esle return');
         return;
+
       }
     }
   }
 
-
   function renderLearningTools(){
+
     // we are here and this is good!
     if ( (isPatternInDatabase.length > 0) && (isPatternInDatabase[0].samplesize > 29) && (renderSwitch !== true) ) {
+
       console.log('PATTERN EXIST WITH SUFFICIENT SAMPLE SIZE');
       searchLargestPatternOccurence();
       // Query DB for that sequence replies
@@ -172,22 +231,39 @@ az
 
       //Temporary reply Render === flag because trouble
       if (allTermsCounted === true){
+
         findPossibleCalciferReplies();
         calciferChoosesReply();
+
       }
 
     } else if ( (isPatternInDatabase.length > 0) && (isPatternInDatabase[0].samplesize < 29) && (allTermsCounted === true) ) {
+
         findPossibleCalciferReplies();
         calciferChoosesReply();
-      } else{
+
+      } else if( (allTermsCounted === true) && (isPatternInDatabase.length === 0) ){
+
+          console.log('We are here!!!!!!!  RENDER THROUGH FOR TEST...');
+          findPossibleCalciferReplies();
+          calciferChoosesReply();
+
+      } else if (allTermsCounted !== true){
+
       reRenderStatement();
       $('#unrecognized-term-text').html(unrecognizedTerms[termCorrectionCounter]);
       $('#unrecognized-term-text').show();
       $('.unrecognized-term-button').show();
       console.log('RENDER RENDER RENDER!!!')
       renderSwitch = true;
+
+    } else {
+
+      console.log('ERROR!  SOMETHING IS WRONG IN YOUR RENDER LEARNING TOOLS FUNCTION!!!')
+
     }
   }
+// NOTE : end of renderLearningTools ...
 
   function searchLargestPatternOccurence(){
     console.log('SORTING FOR LIKELY PATTERN!!!')
@@ -207,14 +283,22 @@ az
     // wordPatternArray = likelyPattern;
   }
 
-  // function renderLearningTools(){
-  //   reRenderStatement();
-  //   $('#unrecognized-term-text').html(unrecognizedTerms[termCorrectionCounter]);
-  //   $('#unrecognized-term-text').show();
-  //   $('.unrecognized-term-button').show();
-  //   console.log('RENDER RENDER RENDER!!!')
-  //   renderSwitch = true;
-  // }
+// Flagging if the ENDING PATTERN already is attached to a begging pattern in the database!
+  function searchForEndingPatternInExistingPatterns(){
+    console.log('SORTING FOR EXISTING ENDING PATTERN!!!')
+    console.log('');
+    console.log('wordPatternArray');
+    console.log(wordPatternArray);
+
+    // for (var i = 0; i < isPatternInDatabase.length; i++){
+      for (var j = 0; j < isPatternInDatabase[0].endingPattern.length; j++){
+        if ( isPatternInDatabase[0].endingPattern.length[j] === wordPatternArray ) {
+          endingPatternExistsFlag = true;
+        }
+      }
+      console.log(' endingPatternExistsFlag ');
+      console.log(endingPatternExistsFlag);
+    }
 
   function hideLearningTools(){
     $('#unrecognized-term-text').hide();

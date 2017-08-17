@@ -5,6 +5,7 @@ let startingPatternArray = [];
 let startPatternString = '';
 let endPatternString = '';
 let pushPatternFlag = false;
+let beginningENDstring = '';
 
 function pushPatternsIntoNewWords() {
   console.log('PUSHING PATTERNS INTO NEW WORDS!!!');
@@ -32,35 +33,54 @@ function pushPatternsIntoNewWords() {
             },
           samplesize: 0
         }
+
+    beginningENDstring =
+        {
+          beggingEndingPairsString: startingPatternArray + endPatternString,
+          patternOccurence: 1,
+        }
     console.log(newPattern);
   }
 
   function postNewPattern(){
-    console.log('POSTING PATTERN!!!');
-    console.log(newPattern)
-    $.ajax({
-      type: 'POST',
-      url: 'api/PatternRecognition',
-      data: newPattern,
-      success: function(data){
-        console.log('POSTING success', data);
-      },
-      error: function(){
-        alert('error posting new name word!')
+      if (allTermsCounted === true ){
+
+        console.log('POSTING PATTERN!!!');
+        console.log(newPattern)
+        $.ajax({
+          type: 'POST',
+          url: 'api/PatternRecognition',
+          data: newPattern,
+          success: function(data){
+            console.log('POSTING success', data);
+          },
+          error: function(){
+            alert('error posting new name word!')
+          }
+        });
+
+        $.ajax({
+          type: 'POST',
+          url: 'api/PatternRecognitionBeginEnd',
+          data: beginningENDstring,
+          success: function(data){
+            console.log('POSTING beginningENDstring success', data);
+          },
+          error: function(){
+            alert('error posting new name word!')
+          }
+        });
+
+        pushPatternFlag = true;
+      } else{
+        console.log('NOT POSTING YET... ')
+
       }
-    });
+
   }
 
-  // function queryThenPost(){
-  //   queryDatabaseForPatterns()
-  // }
-  //
-  // function checkQueryForExistingPattern(){
-  //
-  // }
 
-  pushPatternFlag = true;
   createStartingEndingPatternStrings();
   createStartingPatternObject();
-  // postNewPattern();
+  postNewPattern();
 }

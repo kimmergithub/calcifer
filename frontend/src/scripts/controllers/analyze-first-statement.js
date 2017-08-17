@@ -154,7 +154,7 @@ function analyzeFirstStatmentFileFunction(){
 
       // let potentialAdjective;
       } else if( potentialFormOfToBe.indexOf(wordPatternArray[i]) !== -1 ) {
-          wordPatternArray[i] = 'To-Be Verb';
+          wordPatternArray[i] = 'To-Be-Verb';
       } else if( potentialCapitalizedWords.indexOf(wordPatternArray[i]) !== -1 ) {
           wordPatternArray[i] = 'Name';
       } else if( potentialNouns.indexOf(wordPatternArray[i]) !== -1 ) {
