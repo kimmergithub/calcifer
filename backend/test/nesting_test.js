@@ -37,7 +37,6 @@ describe('Nesting records', function(){
                 done();
             });
         });
-
     });
 
     it('Adds a book to an author', function(done){
@@ -59,6 +58,5 @@ describe('Nesting records', function(){
                 });
             });
         });
-
     });
 });

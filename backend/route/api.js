@@ -36,8 +36,6 @@ router.get('/words', function(req, res, next){
     res.send(words);
     console.log(words);
   })
-
-  // });
 });
 
 router.get('/words/:word', function(req, res, next){
@@ -63,8 +61,6 @@ router.get('/PatternRecognition/:startingPatternString', function(req, res, next
       res.send(pattern);
       console.log(pattern);
   })
-
-  // });
 });
 
 //PUTTING PATTERN
@@ -100,7 +96,6 @@ router.put('/PatternRecognitionBeginEnd/:beggingEndingPairsString', function(req
   })
 });
 
-
 //POSTING PATTERN
 router.post('/PatternRecognition', function(req, res, next){
   console.log('req.body = ' + req.body);
@@ -120,6 +115,15 @@ router.post('/PatternRecognitionBeginEnd', function(req, res, next){
     res.send(pattern);
     console.log(pattern);
   }).catch(next);
+});
+
+
+//GET replies
+router.get('/PatternReply/:QueryReplyString', function(req, res, next){
+    ReplyRecognition.find({QueryReplyString: req.params.QueryReplyString}).then(function(pattern){
+      res.send(pattern);
+      console.log(pattern);
+  })
 });
 
 //POST REPLY

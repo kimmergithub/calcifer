@@ -5,27 +5,6 @@ let newNameWord;
 
 function unrecognizedNameLearning(){
 
-  // function getWords(callback){
-  //   $.ajax({
-  //     type: 'GET',
-  //     url: 'api/words',
-  //     success: function(wordData){
-  //       itWORKED = wordData;
-  //       wordCheck = wordData;
-  //       console.log('success', wordData);
-  //       console.log('wordData.length = ' + wordData.length);
-  //     }
-  //   }).then(callback)
-  // };
-
-  // function isThereWords(){
-  //   if (wordCheck.length === 0) {
-  //     postNewWord()
-  //   } else{
-  //     // putNewWord();
-  //   }
-  // };
-
   function createNewNameWordObject(){
     console.log('CREATING new Name Word!');
     newNameWord =

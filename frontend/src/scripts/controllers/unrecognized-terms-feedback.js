@@ -21,7 +21,7 @@ let putObject = {};
 let putPatternArray;
 let putPatternString;
 let putAndIncFlag = false;
-let endingPatternExistsFlag = true;
+let endingPatternExistsFlag = false;
 
 function unrecognizedTermsFeedback(){
 
@@ -133,15 +133,21 @@ function unrecognizedTermsFeedback(){
   }
 
   function putUniqueEndingPatternAndIncriment(){
+    buildPutObject()
+    searchForEndingPatternInExistingPatterns();
+
     console.log(' ');
     console.log('startPatternString = ' + startPatternString);
     console.log('putObject = ' + putObject);
     console.log(putObject);
     console.log('PUTTING AND INC... PUTTING and INC...');
-    buildPutObject()
-    searchForEndingPatternInExistingPatterns();
+    console.log('');
+    console.log('');
+    console.log('putAndIncFlag = ' + putAndIncFlag);
+    console.log('endingPatternExistsFlag = ' + endingPatternExistsFlag);
+    console.log('allTermsCounted = ' + allTermsCounted);
 
-    if ( (putAndIncFlag !== true) && (endingPatternExistsFlag !== true) ) {
+    if ( (putAndIncFlag !== true) && (endingPatternExistsFlag !== true) && (allTermsCounted === true) ) {
 
       $.ajax({
         url: 'api/PatternRecognition/' + startPatternString,
@@ -155,24 +161,7 @@ function unrecognizedTermsFeedback(){
       putAndIncFlag = true;
     } else if (endingPatternExistsFlag === true) {
       console.log('IGNORED PUT BECUASE FLAG WAS TRUE!!! pattern exists!!!')
-      // console.log('POSTING PATTERN!!!');
-      // console.log(newPattern)
-      // $.ajax({
-      //   type: 'PUT',
-      //   url: 'api/PatternRecognitionInc' + startPatternString,
-      //   data: newPattern,
-      //   success: function(data){
-      //     console.log('POSTING success', data);
-      //   },
-      //   error: function(){
-      //     alert('error posting new name word!')
-      //   }
-      // });
-      //and
-
     }
-
-
   }
 
   function putORpush(){
@@ -285,7 +274,7 @@ function unrecognizedTermsFeedback(){
 
 // Flagging if the ENDING PATTERN already is attached to a begging pattern in the database!
   function searchForEndingPatternInExistingPatterns(){
-    console.log('SORTING FOR EXISTING ENDING PATTERN!!!')
+    console.log('SORTING FOR EXISTING ENDING PATTERN!!!');
     console.log('');
     console.log('wordPatternArray');
     console.log(wordPatternArray);
@@ -294,6 +283,8 @@ function unrecognizedTermsFeedback(){
       for (var j = 0; j < isPatternInDatabase[0].endingPattern.length; j++){
         if ( isPatternInDatabase[0].endingPattern.length[j] === wordPatternArray ) {
           endingPatternExistsFlag = true;
+          console.log('j')
+          console.log(isPatternInDatabase[0].endingPattern.length[j])
         }
       }
       console.log(' endingPatternExistsFlag ');
