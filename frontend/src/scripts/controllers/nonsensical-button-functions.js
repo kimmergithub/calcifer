@@ -5,6 +5,8 @@ let newReplyObject = {};
 let theQueriedReply = '';
 let replyFetch;
 let replyExistsFlag = false;
+let queryReplyWordArrayJoin;
+let queriedReplyEndingPattern;
 
 function nonsensicalButtonFunctions(){
 
@@ -36,16 +38,19 @@ function nonsensicalButtonFunctions(){
 // QUERY THE DATA BASE FOR replies
   function queryReplies(searchData, postNewReply){
 
-    buildNewReplyObject()
-    $.ajax({
-      type: 'GET',
-      url: 'api/PatternReply/' + replyFetch,
-      success: function(wordData){
-        theQueriedReply = wordData;
+    if (isPatternInDatabase.length > 0){
+      buildNewReplyObject()
+      $.ajax({
+        type: 'GET',
+        url: 'api/PatternReply/' + replyFetch,
+        success: function(wordData){
+          theQueriedReply = wordData;
 
-        console.log('success', wordData);
-      }
-    }).then(searchData).then(postNewReply);
+          console.log('success', wordData);
+        }
+      }).then(searchData).then(postNewReply);
+    }
+
   }
 
 // Search the database for a similar reply.
@@ -57,13 +62,19 @@ function nonsensicalButtonFunctions(){
     // if theQueriedReply[0].QueryReplyString === something then exists
     // plus pattern
 
-    for (var j = 0; j < isPatternInDatabase[0].endingPattern.length; j++){
-      if ( (theQueriedReply[0].QueryReplyString === replyFetch) && (theQueriedReply[0].endingPattern === wordPatternArray) ){
-        console.log('REPLY EXISTS');
-        replyExistsFlag = true;
-      } else{
-        console.log('REPLY DOES NOT EXISTS!!! ')
+    if ( (isPatternInDatabase.length > 0) && (theQueriedReply.length !== 0) ){
+
+      for (var j = 0; j < isPatternInDatabase[0].endingPattern.length; j++){
+        if ( (theQueriedReply[0].QueryReplyString === replyFetch) && (theQueriedReply[0].endingPattern.join() === wordPatternArray.join()) ){
+          console.log('REPLY EXISTS');
+          replyExistsFlag = true;
+        } else{
+          console.log('REPLY DOES NOT EXISTS!!! ')
+        }
       }
+
+    } else{
+      console.log('isPatternInDatabase.length === 0');
     }
   }
 
