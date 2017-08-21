@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 
 const beggingEndingPairs = new Schema({
   beggingEndingPairsString: { type: String, require: true },
-  patternOccurence: { type: Number, require: true }
+  patternOccurence: { type: Number, require: true },
+  replies: { type: Array, require: true }
 })
 
 module.exports = mongoose.model('beggingEndingPair', beggingEndingPairs);

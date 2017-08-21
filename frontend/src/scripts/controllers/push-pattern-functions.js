@@ -6,6 +6,7 @@ let startPatternString = '';
 let endPatternString = '';
 let pushPatternFlag = false;
 let beginningENDstring = '';
+let begENDstringINPUT = ''
 
 function pushPatternsIntoNewWords() {
   console.log('PUSHING PATTERNS INTO NEW WORDS!!!');
@@ -17,7 +18,10 @@ function pushPatternsIntoNewWords() {
   function createStartingEndingPatternStrings() {
     startPatternString = startingPatternArray.join();
     endPatternString = wordPatternArray.join();
+    begENDstringINPUT = startPatternString.replace(/,/g, '') + endPatternString.replace(/,/g, '')
   }
+
+// .replace(/,/g, '')
 
   function createStartingPatternObject(){
     console.log('CREATING new Name Word!');
@@ -36,8 +40,9 @@ function pushPatternsIntoNewWords() {
 
     beginningENDstring =
         {
-          beggingEndingPairsString: startingPatternArray + endPatternString,
+          beggingEndingPairsString: begENDstringINPUT,
           patternOccurence: 1,
+          replies: [''],
         }
     console.log(newPattern);
   }
@@ -58,6 +63,9 @@ function pushPatternsIntoNewWords() {
             alert('error posting new name word!')
           }
         });
+
+
+    // newReplyText.replace(/\s/g, '') === this will cut out everything but the reply text...
 
         $.ajax({
           type: 'POST',

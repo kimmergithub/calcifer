@@ -7,6 +7,7 @@ let replyFetch;
 let replyExistsFlag = false;
 let queryReplyWordArrayJoin;
 let queriedReplyEndingPattern;
+let beggingEndingPatternString = '';
 
 function nonsensicalButtonFunctions(){
 
@@ -50,6 +51,47 @@ function nonsensicalButtonFunctions(){
         }
       }).then(searchData).then(postNewReply);
     }
+
+  }
+
+  // -- QUERY BEGINGING ENDING PATTERN === // callback is going to be pushing the reply again...
+  function queryBeginningEndingPatter(callback){
+      beggingEndingPatternString = startingPatternArray.join().replace(/,/g, '') + wordPatternArray.join().replace(/,/g, '');
+      $.ajax({
+        type: 'GET',
+        url: 'api/PatternRecognitionBeginEnd/' + beggingEndingPatternString, // something needs be changed at the end ... something here about the endPatternString is off.
+        success: function(patternStringData){
+          theQueriedReply = patternStringData;
+
+          console.log('success', patternStringData);
+        }
+      }).then(callback);
+
+  }
+
+  // object to put!   I"M HERE
+  function rebuildputBeginningEndingObject(){
+    beginningENDstring =
+        {
+          beggingEndingPairsString: beggingEndingPatternString,
+          patternOccurence: 1,
+          replies: newReplyText
+        }
+  }
+
+  // -- Function PUT 'Push' reply into another slot...
+  function putBeginningEndingPattern(){
+
+    rebuildputBeginningEndingObject();
+
+    $.ajax({
+      url: 'api/PatternRecognitionBeginEnd/' + beggingEndingPatternString,
+      type: 'PUT',
+      data: beginningENDstring,
+      success: function(data) {
+        console.log('PUT success', data);
+      }
+    });
 
   }
 
@@ -97,8 +139,12 @@ function nonsensicalButtonFunctions(){
 
     } else{
       console.log('Should PUT INC Reply');
+      // querying database for reply...
+      queryBeginningEndingPatter(putBeginningEndingPattern);
     }
   }
+
+  // Function - checks query for same reply and pushes it.
 
   $('#reply-send-statement').click(function (event) {
     event.preventDefault();

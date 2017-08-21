@@ -73,22 +73,23 @@ router.put('/PatternRecognition/:startingPatternString', function(req, res, next
   })
 });
 
-// get PatternRecognitionBeginEnd
+//GET BeginngingENDpairs
 router.get('/PatternRecognitionBeginEnd/:beggingEndingPairsString', function(req, res, next){
-    console.log(req.params);
-    console.log('hitting this!')
-    Word.find({beggingEndingPairsString: req.params.beggingEndingPairsString}).then(function(words){
-      res.send(words);
-      console.log(words);
+  BeggingEndingPair.find({beggingEndingPairsString: req.params.beggingEndingPairsString}).then(function(pattern){
+    res.send(pattern);
+    console.log(pattern);
   })
 });
-//
+
+//, $pushAll: {replies: req.params.replies}
 //PUTTING PATTERN  INC. BeginngingENDpairs
 router.put('/PatternRecognitionBeginEnd/:beggingEndingPairsString', function(req, res, next){
 
   console.log(req.params);
+  console.log(req.params.replies);
+  console.log(req.body);
 
-  BeggingEndingPair.findOneAndUpdate({beggingEndingPairsString: req.params.beggingEndingPairsString}, { $inc: {patternOccurence: 1} }, {new: true}).then(function(pattern){
+  BeggingEndingPair.findOneAndUpdate({beggingEndingPairsString: req.params.beggingEndingPairsString}, { $inc: {patternOccurence: 1}, $push: {replies: req.body.replies}}, {new: true}).then(function(pattern){
     res.send(pattern);
     console.log(pattern);
   }).catch(function(error){
@@ -116,6 +117,7 @@ router.post('/PatternRecognitionBeginEnd', function(req, res, next){
     console.log(pattern);
   }).catch(next);
 });
+
 
 
 //GET replies
