@@ -219,15 +219,18 @@ function unrecognizedTermsFeedback(){
       renderSwitch = true;
 
       //Temporary reply Render === flag because trouble
-      if (allTermsCounted === true){
+      // HERE'S WERE WE START LOOKING FOR REPLY PATTERNS
+      if ( (allTermsCounted === true) && (isPatternInDatabase[0].samplesize > 29)){
+        console.log('HERE: all terms accounted for === ABOUT TO QUERY beggingEndingPatternString for replies.')
 
-        findPossibleCalciferReplies();
-        calciferChoosesReply();
+        // query replies by pattern beginning and ending...
+        queryBeginningEndingPattern(chooseRepliesByPatternOccurenceAndReplyLikelyHood);
 
       }
 
     } else if ( (isPatternInDatabase.length > 0) && (isPatternInDatabase[0].samplesize < 29) && (allTermsCounted === true) ) {
 
+        console.log('ITS HERE HERE ========= ')
         findPossibleCalciferReplies();
         calciferChoosesReply();
 

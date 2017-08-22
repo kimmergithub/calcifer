@@ -5,7 +5,7 @@ $('#back-calcifer-button').click(function(){
   console.log(' ');
   console.log('reboot!');
   console.log(' ');
-
+  location.reload();
   backToCalcifer();
 });
 

@@ -8,6 +8,7 @@ const Word = require('../model/word-schema');
 const PatternRecognition = require('../model/pattern-recognition-schema');
 const ReplyRecognition = require('../model/possible-reply-schema');
 const BeggingEndingPair = require('../model/beginning-end-pattern-matches');
+const Innappropriate = require('../model/innapropriate-response-schema');
 
 // NOTE: FRONT END
 // to access these APIs on the front end you'll have to create an event handles and build an API sting form the data input that will do what you want it to do and use certain functions like fetch and etc...
@@ -113,6 +114,16 @@ router.post('/PatternRecognition', function(req, res, next){
 router.post('/PatternRecognitionBeginEnd', function(req, res, next){
 
   BeggingEndingPair.create(req.body).then(function(pattern){
+    res.send(pattern);
+    console.log(pattern);
+  }).catch(next);
+});
+
+// POST INAPPRORRIATE RESPONSE
+router.post('/innappropriate', function(req, res, next){
+  console.log('Hitting this route')
+
+  Innappropriate.create(req.body).then(function(pattern){
     res.send(pattern);
     console.log(pattern);
   }).catch(next);
