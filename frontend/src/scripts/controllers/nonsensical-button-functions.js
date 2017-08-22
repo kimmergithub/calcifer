@@ -9,6 +9,20 @@ let queryReplyWordArrayJoin;
 let queriedReplyEndingPattern;
 let beggingEndingPatternString = '';
 
+function queryBeginningEndingPattern(callback){
+    beggingEndingPatternString = startingPatternArray.join().replace(/,/g, '') + wordPatternArray.join().replace(/,/g, '');
+    $.ajax({
+      type: 'GET',
+      url: 'api/PatternRecognitionBeginEnd/' + beggingEndingPatternString, // something needs be changed at the end ... something here about the endPatternString is off.
+      success: function(patternStringData){
+        theQueriedReply = patternStringData;
+
+        console.log('success', patternStringData);
+      }
+    }).then(callback);
+
+}
+
 function nonsensicalButtonFunctions(){
 
   function buildNewReplyObject(){
@@ -55,19 +69,21 @@ function nonsensicalButtonFunctions(){
   }
 
   // -- QUERY BEGINGING ENDING PATTERN === // callback is going to be pushing the reply again...
-  function queryBeginningEndingPatter(callback){
-      beggingEndingPatternString = startingPatternArray.join().replace(/,/g, '') + wordPatternArray.join().replace(/,/g, '');
-      $.ajax({
-        type: 'GET',
-        url: 'api/PatternRecognitionBeginEnd/' + beggingEndingPatternString, // something needs be changed at the end ... something here about the endPatternString is off.
-        success: function(patternStringData){
-          theQueriedReply = patternStringData;
+// going to save this so I can refactor it later === module app.
 
-          console.log('success', patternStringData);
-        }
-      }).then(callback);
-
-  }
+  // function queryBeginningEndingPattern(callback){
+  //     beggingEndingPatternString = startingPatternArray.join().replace(/,/g, '') + wordPatternArray.join().replace(/,/g, '');
+  //     $.ajax({
+  //       type: 'GET',
+  //       url: 'api/PatternRecognitionBeginEnd/' + beggingEndingPatternString, // something needs be changed at the end ... something here about the endPatternString is off.
+  //       success: function(patternStringData){
+  //         theQueriedReply = patternStringData;
+  //
+  //         console.log('success', patternStringData);
+  //       }
+  //     }).then(callback);
+  //
+  // }
 
   // object to put!   I"M HERE
   function rebuildputBeginningEndingObject(){
@@ -140,7 +156,7 @@ function nonsensicalButtonFunctions(){
     } else{
       console.log('Should PUT INC Reply');
       // querying database for reply...
-      queryBeginningEndingPatter(putBeginningEndingPattern);
+      queryBeginningEndingPattern(putBeginningEndingPattern);
     }
   }
 

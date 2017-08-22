@@ -27,9 +27,9 @@ $('#send-statement').click(function (event) {
     unrecognizedTermsFeedback()
   } else{
 
-    findPersonName();
-    findPossibleCalciferReplies();
-    calciferChoosesReply();
+    // findPersonName();
+    // findPossibleCalciferReplies();
+    // calciferChoosesReply();
   }
 
   //Console logs FOR BUTTON;
