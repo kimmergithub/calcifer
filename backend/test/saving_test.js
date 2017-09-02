@@ -26,6 +26,8 @@ const url = `http://localhost:${PORT}`;
 let tempEntry;
 let exampleEntry;
 
+// need to clean all this up.
+
 // const exampleEntry = {
 //   entry: 'this is a test response'
 // }
